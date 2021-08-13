@@ -156,7 +156,9 @@
         <input type="text" id="sex_name">
         <input type="button" value="Get sex" id="get_sex" action="get_sex">
         <span id="sex_result"></span>
-        <?php echo determinant_of_name('Антон');?>
+        <?php 
+        //echo determinant_of_name('Антон');
+        ?>
         <?php 
 
         ?>
