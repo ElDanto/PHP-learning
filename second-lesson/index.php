@@ -142,6 +142,9 @@
 
         <?php 
         // var_dump(include(__DIR__ . '/functions.php')); == int(1);
+        // var_dump();
+        // $host_set = include(__DIR__ . '/test-include.php');
+        // var_dump($host_set['host']);
         // var_dump(include(__DIR__ . '/function.php')); == bool(false);
         //Обработка возвращаемых значений: оператор include возвращает значение FALSE при ошибке и выдаёт предупреждение. Успешные включения, пока это не переопределено во включаемом файле, возвращают значение 1.
         ?>
@@ -149,23 +152,11 @@
     </div>
     <h1>Bonus task</h1>
     <div class="bonus-task">
-        <?php 
-        echo determinant_of_name('Никита');
-        ?>
+        <span>Name(Full on Russian)</span>
+        <input type="text" id="sex_name">
+        <input type="button" value="Get sex" id="get_sex" action="get_sex">
+        <span id="sex_result"></span>
     </div>
-
-    <?php 
-    // $action = !empty($_POST['action']) ? $_POST['action'] : false;
-    // if($action == 'submit_form'){
-    //     submit_form();
-    //     die;
-    // }
-    // function submit_form(){
-    //     $first_input = $_POST['first_input'];
-    //     echo $first_input;
-    //     die;
-    // }
-    ?>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>
     <script src="script.js"></script>

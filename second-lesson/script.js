@@ -7,7 +7,7 @@ $(document).ready(function(){
         data.third_input = $('#third-number').val();
         $.ajax({
             type: "POST",
-            url: "handler.php",
+            url: "functions.php",
             data: data
         }).done(function(response){
             var jsonObject = JSON.parse(response);
@@ -21,6 +21,19 @@ $(document).ready(function(){
                 var result = jsonObject;
                 $('#result').text(result);
             }
+        });
+    });
+
+    $('#get_sex').on('click', function(){
+        var data = {};
+        data.action = $('#get_sex').attr('action');
+        data.name = $('#sex_name').val();
+        $.ajax({
+            type: "POST",
+            url: "functions.php",
+            data: data
+        }).done(function(response){
+            $('#sex_result').text(response);
         });
     });
 });
