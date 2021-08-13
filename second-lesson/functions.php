@@ -61,7 +61,7 @@ function determinant_of_name() {
         $result = null;
     }
     echo $result;
-    return $result;
+    //return $result;
 }
 // assert('Женское имя' === determinant_of_name('Мария')); == true
 // assert('Женское имя' === determinant_of_name('Инга')); == true
