@@ -14,8 +14,8 @@
     // 0 = '0' = '' = false - Транзитивность
     require __DIR__ . '/functions.php';
     
-    $one = 1;
-    $zero = 0;
+    $one = true;
+    $zero = false;
     ?>
     <h1>First task</h1>
     <div class="first-task">
@@ -156,6 +156,10 @@
         <input type="text" id="sex_name">
         <input type="button" value="Get sex" id="get_sex" action="get_sex">
         <span id="sex_result"></span>
+        <?php echo determinant_of_name('Антон');?>
+        <?php 
+
+        ?>
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>

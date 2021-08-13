@@ -1,4 +1,5 @@
 <?php
+
 function logic_op_res($a, $b, $name_op) {
     switch ($name_op) {
         case 'and':
@@ -57,7 +58,13 @@ function determinant_of_name() {
     } elseif ( !( $name == 'Женя' || $name == 'Саша' ) ){
         $result = 'Мужское имя';
     } else {
-        $result = 'Имя неопределено';
+        $result = null;
     }
     echo $result;
+    return $result;
 }
+// assert('Женское имя' === determinant_of_name('Мария')); == true
+// assert('Женское имя' === determinant_of_name('Инга')); == true
+// assert('Мужское имя' === determinant_of_name('Никита')); == true
+// assert('Мужское имя' === determinant_of_name('Игорь')); == true
+// assert('Женское имя' === determinant_of_name('Антон')); == FATAL ERROR !!! Uncaught AssertionError
