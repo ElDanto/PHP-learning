@@ -20,12 +20,15 @@ function logic_op_res($a, $b, $name_op) {
 $action = !empty($_POST['action']) ? $_POST['action'] : false;
 switch ($action) {
     case 'submit_form':
-        submit_form();
+        echo json_encode(submit_form());
         break;
     case 'get_sex':
-        determinant_of_name();
+        echo determinant_of_name();
         break;
+    die();
 }
+
+
 function submit_form(){
     $a = $_POST['first_input'];
     $b = $_POST['second_input'];
@@ -43,8 +46,7 @@ function submit_form(){
         $result['first'] = $x1;
         $result['second'] = $x2;
     }
-    echo json_encode($result);
-    die;
+    return $result;
 }
 
 function determinant_of_name() {
@@ -60,7 +62,6 @@ function determinant_of_name() {
     } else {
         $result = null;
     }
-    echo $result;
     return $result;
 }
 // assert('Женское имя' === determinant_of_name('Мария')); == true
