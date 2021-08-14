@@ -9,5 +9,6 @@
 <body>
     <a href="first-lesson/index.php">1 lesson</a>
     <a href="second-lesson/index.php">2 lesson</a>
+    <a href="third-lesson/index.php">3 lesson</a>
 </body>
 </html>
