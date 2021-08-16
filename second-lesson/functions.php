@@ -49,18 +49,50 @@ function submit_form(){
     return $result;
 }
 
+// function determinant_of_name() {
+//     $name = $_POST['name'];
+//     $name = preg_replace('/\s+/', '', $name);
+//     $last_char = mb_substr($name, -1, 1);
+//     $a = str_ends_with($name,'а');
+//     $ya = str_ends_with($name,'я');
+//     $soft_char = str_ends_with($name,'ь');
+//     if ( ( $a || $ya || $soft_char ) && !($name == 'Савва' || $name == 'Фома'  || $name == 'Добрыня' || $name == 'Данила' || $name == 'Илья' || $name == 'Аникита' || $name == 'Лука' || $name == 'Кузьма' || $name == 'Игорь' || $name == 'Никита' || $name == 'Израиль' || $name == 'Камиль' || $name == 'Лазарь' || $name == 'Марсель' || $name == 'Мигель' || $name == 'Эмиль' || $name == 'Шамиль' || $name == 'Цезарь' || $name == 'Фидель' || $name == 'Рамиль' || $name == 'Равиль' || $name == 'Олесь' || $name == 'Наиль' || $name == 'Николя' || $name == 'Женя' || $name == 'Саша') ) {
+//         $result = 'Женское имя';
+//     } elseif ( !( $name == 'Женя' || $name == 'Саша' ) ){
+//         $result = 'Мужское имя';
+//     } else {
+//         $result = null;
+//     }
+//     // return $result;
+//     return $last_char;
+// }
 function determinant_of_name() {
     $name = $_POST['name'];
     $name = preg_replace('/\s+/', '', $name);
-    $a = str_ends_with($name,'а');
-    $ya = str_ends_with($name,'я');
-    $soft_char = str_ends_with($name,'ь');
-    if ( ( $a || $ya || $soft_char ) && !($name == 'Савва' || $name == 'Фома'  || $name == 'Добрыня' || $name == 'Данила' || $name == 'Илья' || $name == 'Аникита' || $name == 'Лука' || $name == 'Кузьма' || $name == 'Игорь' || $name == 'Никита' || $name == 'Израиль' || $name == 'Камиль' || $name == 'Лазарь' || $name == 'Марсель' || $name == 'Мигель' || $name == 'Эмиль' || $name == 'Шамиль' || $name == 'Цезарь' || $name == 'Фидель' || $name == 'Рамиль' || $name == 'Равиль' || $name == 'Олесь' || $name == 'Наиль' || $name == 'Николя' || $name == 'Женя' || $name == 'Саша') ) {
-        $result = 'Женское имя';
-    } elseif ( !( $name == 'Женя' || $name == 'Саша' ) ){
-        $result = 'Мужское имя';
-    } else {
-        $result = null;
+    $last_char = mb_substr($name, -1, 1);
+    switch($last_char){
+        case 'a':
+        case 'и':
+        case 'я':
+        case 'ь':
+            $result = "Женское имя";
+            break; 
+        case 'й':   
+        case 'б':
+        case 'л':   
+        case 'м':            
+        case 'г':  
+        case 'р':
+        case 'в':
+        case 'д':
+            $result = "Мужское имя";
+            break;
+        default: 
+            $result = null;
+            break;
+    }
+    if(($name == 'Савва' || $name == 'Фома'  || $name == 'Добрыня' || $name == 'Данила' || $name == 'Илья' || $name == 'Аникита' || $name == 'Лука' || $name == 'Кузьма' || $name == 'Игорь' || $name == 'Никита' || $name == 'Израиль' || $name == 'Камиль' || $name == 'Лазарь' || $name == 'Марсель' || $name == 'Мигель' || $name == 'Эмиль' || $name == 'Шамиль' || $name == 'Цезарь' || $name == 'Фидель' || $name == 'Рамиль' || $name == 'Равиль' || $name == 'Олесь' || $name == 'Наиль' || $name == 'Николя' || $name == 'Женя' || $name == 'Саша')){
+        $result = "Мужское имя";
     }
     return $result;
 }
