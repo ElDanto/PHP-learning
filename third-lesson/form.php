@@ -11,50 +11,50 @@
     <?php
     $result = '';
     $options = ['+', '-', '*', '/', '^', '%'];
-        if( isset( $_GET['first-val'] ) ){
-            $calc_data = calculator();
-            $f_val = $calc_data['f_val'];
-            $s_val = $calc_data['s_val'];
-            $oper = $calc_data['oper'];
-            $result = $calc_data['result'];
+    if( isset( $_GET['first-val'] ) ){
+        $calc_data = calculator();
+        $f_val = $calc_data['f_val'];
+        $s_val = $calc_data['s_val'];
+        $oper = $calc_data['oper'];
+        $result = $calc_data['result'];
+    }
+    function calculator(){
+        $first_val = (int)$_GET['first-val'];
+        $second_val = (int)$_GET['second-val'];
+        $oper = $_GET['operation'];
+        $result = 0;
+        switch($oper){
+            case '+':
+                $result = $first_val + $second_val;
+                break;
+            case '-':
+                $result = $first_val - $second_val;
+                break;
+            case '*':
+                $result = $first_val * $second_val;
+                break;
+            case '/':
+                if ($second_val === 0){
+                    $result = 'На ноль делить нельзя';
+                } else {
+                    $result = $first_val / $second_val;
+                }
+                break;
+            case '^':
+                $result = $first_val ** $second_val;
+                break;
+            case '%':
+                $result =  ($first_val * $second_val)/100;
+                break;  
         }
-        function calculator(){
-            $first_val = (int)$_GET['first-val'];
-            $second_val = (int)$_GET['second-val'];
-            $oper = $_GET['operation'];
-            $result = 0;
-            switch($oper){
-                case '+':
-                    $result = $first_val + $second_val;
-                    break;
-                case '-':
-                    $result = $first_val - $second_val;
-                    break;
-                case '*':
-                    $result = $first_val * $second_val;
-                    break;
-                case '/':
-                    if ($second_val === 0){
-                        $result = 'На ноль делить нельзя';
-                    } else {
-                        $result = $first_val / $second_val;
-                    }
-                    break;
-                case '^':
-                    $result = $first_val ** $second_val;
-                    break;
-                case '%':
-                    $result =  ($first_val * $second_val)/100;
-                    break;  
-            }
-            $calc_data  = [
-                'f_val'     =>   $first_val,
-                's_val'     =>   $second_val,
-                'result'    =>   $result,
-                'oper'    =>   $oper,
-            ];
-            return $calc_data;
-        }
+        $calc_data  = [
+            'f_val'     =>   $first_val,
+            's_val'     =>   $second_val,
+            'result'    =>   $result,
+            'oper'    =>   $oper,
+        ];
+        return $calc_data;
+    }
     ?>
     <form action="form.php" method="get">
         <div class="block">
