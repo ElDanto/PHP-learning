@@ -34,6 +34,7 @@ $(document).ready(function(){
             data: data
         }).done(function(response){
             $('#sex_result').text(response);
+            console.log(response);
         });
     });
 });
