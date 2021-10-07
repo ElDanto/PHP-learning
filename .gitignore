@@ -16,5 +16,8 @@
 .ionide
 
 *.css
-
+*.png
+*.jpeg
+*.jpg
+*.txt
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
