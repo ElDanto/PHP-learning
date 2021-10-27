@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/class-guestbook.php';
+include __DIR__ . '/Guestbook.php';
 $path = __DIR__ . '/test-book.txt';
 $guestbook = new GuestBook($path);
 $posts = $guestbook->getData();
