@@ -3,7 +3,6 @@ class ReadFile
 {
     protected $path = '';
     protected $data = [];
-    protected $separator = '|';
 
     public function __construct($path)
     {
@@ -11,11 +10,11 @@ class ReadFile
         $this->path = $path;
     }
 
-    public function setData($path)
+    public function setData($path, $separator='|')
     {
         $raw_items = file($path, FILE_IGNORE_NEW_LINES);
         foreach($raw_items as $line) {
-            $this->data[] = explode('|', $line);
+            $this->data[] = explode($separator, $line);
         }
     }
 
