@@ -14,5 +14,6 @@
     <a href="sixth-lesson/index.php">6 lesson</a>
     <a href="seventh-lesson/index.php">7 lesson</a>
     <a href="eighth-lesson/index.php">8 lesson</a>
+    <a href="exam/index.php">Exam</a>
 </body>
 </html>
