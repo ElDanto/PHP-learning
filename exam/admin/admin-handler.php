@@ -1,58 +1,140 @@
 <?php
 require __DIR__ . '/../classes/DB.php';
 require __DIR__ . '/../classes/Uploader.php';
-$db = new DB();
-if(isset($_POST['add-image'])){
+require __DIR__ . '/../classes/Valid.php';
+
+function adminHandler() {
+    $db = new DB();
+    $result = '';
+    $prev_page = '';
+    switch ($_POST['action']) {
+        case 'add-image':
+            $data = array_merge($_POST, $_FILES);
+            $result = addImageHandler($data, $db);
+            $prev_page = '/exam/admin.php?add-image=1';
+            break;
+        
+        case 'add-album':
+            $data = array_merge($_POST, $_FILES);
+            $result = addAlbumHandler($data, $db);
+            $prev_page = '/exam/admin.php?add-album=1';
+            break;
+        case 'edit-album':
+            $result = editAlbumHandler($_POST, $db);
+            $prev_page = '/exam/admin.php?edit-album=1&id=' . $_POST['id'];
+     }
+
+    $params = '';
+    if ($result['status'] == 'errors') {
+        $params = '&status=errors';
+        foreach ($result['errors'] as $key => $error) {
+            foreach ($error as $key => $value) {
+                $params .= '&' . $key . '=' . $value;
+            }
+        }
+    }
+    if ($result['status'] == 'success') {
+        $params = '&status=success';
+    }
+
+    header('Location: ' . $prev_page . $params);
+    exit;    
+}
+adminHandler();
+
+function addImageHandler($data, $db) {
     $uploader = new Uploader('gallery-image', '/../img/gallery/');
+
+    $patterns = [
+        'gallery-image' => 'image|require',
+    ];
+
+    $valid = new Valid($data, $patterns);
+    $errors = $valid->getResult();
+    if (!empty($errors)) {
+        return [
+            'status' => 'errors',
+            'errors' => $errors,
+        ];
+    }
+
     $tempImg = $uploader->upload()->getUploadedFileName();
+    
     $img = '/gallery/' . $tempImg;
-    $data = [
-        ':subtitle' => $_POST['gallery-subtitle'],
+    
+    $sqlData = [
+        ':subtitle' => $data['gallery-subtitle'],
         ':thumbnail' => $img,
     ];
-    $test = $db->query('INSERT INTO `gallery`( `subtitle`, `image`) VALUES (:subtitle, :thumbnail)', $data);
-    
-    var_dump($test);
 
-    // header('Location: /exam/admin.php');
-    // exit; 
+    $test = $db->query('INSERT INTO `gallery`( `subtitle`, `image`) VALUES (:subtitle, :thumbnail)', $sqlData);
+    return [
+        'status' => 'success'
+    ];
 }
-if(isset($_POST['add-album'])){
-    if(empty($_POST['album-name']) && empty($_POST['album-content']) && empty($_POST['album-year'])){
-        header('Location: /exam/admin.php');
-        exit; 
-    }else{
-        $img = '';
-        $uploader = new Uploader('albums-cover', '/../img/albums/');
-        $tempImg = $uploader->upload()->getUploadedFileName();
-        if($tempImg){
-            $img = '/albums/' . $tempImg;
-        }
-        
-        $albumsData = [
-            ':title' => $_POST['album-name'],
-            ':thumbnail' => $img,
-            ':years' => $_POST['album-year'],
-            ':record' => $_POST['album-content'],
+
+function addAlbumHandler($data, $db) {
+    $uploader = new Uploader('albums-cover', '/../img/gallery/');
+    
+    $patterns = [
+        'album-cover' => 'require|image',
+        'album-name' => 'require',
+        'album-content' => 'require',
+    ];
+    $valid = new Valid($data, $patterns);
+    $errors = $valid->getResult();
+    if (!empty($errors)) {
+        return [
+            'status' => 'errors',
+            'errors' => $errors,
         ];
-        $db->query('INSERT INTO `albums`(`id`, `title`, `thumbnail`, `year`, `records`) VALUES (NULL, :title , :thumbnail , :years , :record )', $albumsData);
-        header('Location: /exam/admin.php');
-        exit; 
     }
+
+    $img = '';
+    $uploader = new Uploader('albums-cover', '/../img/albums/');
+    $tempImg = $uploader->upload()->getUploadedFileName();
+    if($tempImg){
+        $img = '/albums/' . $tempImg;
+    }
+    
+    $sqlData = [
+        ':title' => $data['album-name'],
+        ':thumbnail' => $img,
+        ':years' => $data['album-year'],
+        ':record' => $data['album-content'],
+    ];
+    $db->query('INSERT INTO `albums`(`id`, `title`, `thumbnail`, `year`, `records`) VALUES (NULL, :title , :thumbnail , :years , :record )', $sqlData);
+        
+    return [
+        'status' => 'success'
+    ];
 }
-if(isset($_POST['edit-album'])){
-    $albumsData = [
-        ':title' => $_POST['album-title'],
-        ':thumbnail' => $_POST['album-thumbnail'],
-        ':years' => $_POST['album-year'],
-        ':records' => $_POST['album-records'],
-        ':id' => $_POST['id'],
+
+function editAlbumHandler($data, $db) {
+    $patterns = [
+        'album-title' => 'require',
+        'album-thumbnail' => 'require',
+        'album-records' => 'require',
+    ];
+    $valid = new Valid($data, $patterns);
+    $errors = $valid->getResult();
+    if (!empty($errors)) {
+        return [
+            'status' => 'errors',
+            'errors' => $errors,
+        ];
+    }
+    $sqlData = [
+        ':title' => $data['album-title'],
+        ':thumbnail' => $data['album-thumbnail'],
+        ':years' => $data['album-year'],
+        ':records' => $data['album-records'],
+        ':id' => $data['id'],
     ];
     
-    $test = $db->query('UPDATE `albums` SET `title`= :title ,`thumbnail`= :thumbnail ,`year`= :years ,`records`= :records WHERE `id` = :id', $albumsData);
-    
-    
-    header('Location: /exam/admin.php');
-    exit; 
+    $db->query('UPDATE `albums` SET `title`= :title ,`thumbnail`= :thumbnail ,`year`= :years ,`records`= :records WHERE `id` = :id', $sqlData);
+
+    return [
+        'status' => 'success'
+    ];
 }
-?>

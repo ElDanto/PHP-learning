@@ -44,7 +44,7 @@ class DB
         $prepare = $this->dbh->prepare($sql);
         $test = $prepare->execute($data);
         // var_dump($sql, $prepare, $data);
-        // return $test;
+        // // return $test;
         return $prepare->fetchAll(PDO::FETCH_CLASS);
     }
 }

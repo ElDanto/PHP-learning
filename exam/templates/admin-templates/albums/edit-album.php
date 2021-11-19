@@ -1,4 +1,5 @@
 <?php $album = $data['album']; ?>
+<?php include __DIR__ . '../../errors.php'; ?>
 <style>
 input, textarea {
     display: block;
@@ -6,6 +7,7 @@ input, textarea {
 }
 </style>
 <div class="stage" style="text-align: center;">
+    <h2>Измненить альбом</h2>
     <form action="/exam/admin/admin-handler.php" method="post" >
         <input type="text" name="album-title" value="<?php echo $album->title; ?>">
         
@@ -19,7 +21,7 @@ input, textarea {
             <?php endforeach; ?>
         </textarea>
         <input type="hidden" name="id" value="<?php echo $album->id;?>">
-        <input type="hidden" name="edit-album">
+        <input type="hidden" name="action" value="edit-album">
         <input type="submit" value="Update">
     </form>
 </div>

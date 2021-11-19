@@ -17,7 +17,7 @@
                     <?php endforeach; ?>
                 </td>
                 <td>
-                    <a href="?id=<?php echo $album->id; ?>">Edit</a>
+                    <a href="?edit-album=1&id=<?php echo $album->id; ?>">Edit</a>
                 </td>
             </tr>
         <?php endforeach; ?>

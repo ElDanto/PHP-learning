@@ -13,7 +13,7 @@ class Uploader
 
     public function isUploaded(){
         if(!empty($_FILES)){
-            if(isset($_FILES[$this->inputName])){
+            if(isset($_FILES[$this->inputName]) && $_FILES[$this->inputName]['error'] === 0){
                 return true;
             }else{
                 return false;

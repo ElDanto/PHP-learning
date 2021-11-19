@@ -31,7 +31,7 @@
         // include_once __DIR__ . '/templates/admin-templates/albums/edit-albums.php';
     }
 
-    if(isset($_GET['id'])){
+    if(isset($_GET['edit-album'])){
 
         $sqlArray = $db->query('SELECT * FROM `albums` WHERE `id` = :id', [':id' => $_GET['id']]);
 

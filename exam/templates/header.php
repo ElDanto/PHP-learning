@@ -9,7 +9,20 @@ $link = '/exam/admin/auth-handler.php?logout';
 if($_SESSION['id'] == 1){
 	$link = '/exam/admin.php';
 }
+
+
+function currentPage($name){
+	$url = $_SERVER['REQUEST_URI'];
+	$url = explode('?', $url);
+	$url = $url[0];
+
+	$path = mb_substr($url, 6, -4);
+	if($path == $name){
+		return 'menu__item--current';
+	}
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -31,8 +44,8 @@ if($_SESSION['id'] == 1){
         <header class="codrops-header">
 			<h1 class="codrops-title">Kurt Donald Cobain <span>Singer</span></h1>
 			<nav class="menu">
-				<a class="menu__item" href="<?php echo $link;?>"><span><?php echo $userName;?></span></a>
-				<a class="menu__item" href="gallery.php"><span>Gallery</span></a>
-				<a class="menu__item menu__item--current" href="index.php"><span>Albums</span></a>
+				<a class="menu__item <?php echo currentPage('admin');?>" href="<?php echo $link;?>"><span><?php echo $userName;?></span></a>
+				<a class="menu__item <?php echo currentPage('gallery');?>" href="gallery.php"><span>Gallery</span></a>
+				<a class="menu__item <?php echo currentPage('index');?>" href="index.php"><span>Albums</span></a>
 			</nav>
 		</header>
