@@ -1,8 +1,9 @@
 <?php 
+require __DIR__ . '/autoload.php';
     require __DIR__ . '/templates/header.php'; 
-    require __DIR__ . '/classes/DB.php';
+    // require __DIR__ . '/classes/DB.php';
 
-    $db = new DB();
+    $db = new \Classes\DB();
     $image = $db->query('SELECT * FROM `gallery` WHERE `id` = :id', [':id' => $_GET['id']]);
     $image = $image[0];
 ?>

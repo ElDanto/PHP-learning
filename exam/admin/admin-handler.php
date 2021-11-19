@@ -1,10 +1,11 @@
 <?php
-require __DIR__ . '/../classes/DB.php';
-require __DIR__ . '/../classes/Uploader.php';
-require __DIR__ . '/../classes/Valid.php';
+require __DIR__ . '/../autoload.php';
+// require __DIR__ . '/../classes/DB.php';
+// require __DIR__ . '/../classes/Uploader.php';
+// require __DIR__ . '/../classes/Valid.php';
 
 function adminHandler() {
-    $db = new DB();
+    $db = new \Classes\DB();
     $result = '';
     $prev_page = '';
     switch ($_POST['action']) {
@@ -43,13 +44,13 @@ function adminHandler() {
 adminHandler();
 
 function addImageHandler($data, $db) {
-    $uploader = new Uploader('gallery-image', '/../img/gallery/');
+    $uploader = new \Classes\Uploader('gallery-image', '/../img/gallery/');
 
     $patterns = [
         'gallery-image' => 'image|require',
     ];
 
-    $valid = new Valid($data, $patterns);
+    $valid = new \Classes\Valid($data, $patterns);
     $errors = $valid->getResult();
     if (!empty($errors)) {
         return [
@@ -74,14 +75,13 @@ function addImageHandler($data, $db) {
 }
 
 function addAlbumHandler($data, $db) {
-    $uploader = new Uploader('albums-cover', '/../img/gallery/');
     
     $patterns = [
         'album-cover' => 'require|image',
         'album-name' => 'require',
         'album-content' => 'require',
     ];
-    $valid = new Valid($data, $patterns);
+    $valid = new \Classes\Valid($data, $patterns);
     $errors = $valid->getResult();
     if (!empty($errors)) {
         return [
@@ -91,8 +91,9 @@ function addAlbumHandler($data, $db) {
     }
 
     $img = '';
-    $uploader = new Uploader('albums-cover', '/../img/albums/');
+    $uploader = new \Classes\Uploader('album-cover', '/../img/albums/');
     $tempImg = $uploader->upload()->getUploadedFileName();
+    var_dump($tempImg);
     if($tempImg){
         $img = '/albums/' . $tempImg;
     }
@@ -116,7 +117,7 @@ function editAlbumHandler($data, $db) {
         'album-thumbnail' => 'require',
         'album-records' => 'require',
     ];
-    $valid = new Valid($data, $patterns);
+    $valid = new \Classes\Valid($data, $patterns);
     $errors = $valid->getResult();
     if (!empty($errors)) {
         return [

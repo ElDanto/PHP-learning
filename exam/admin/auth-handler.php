@@ -1,6 +1,7 @@
 <?php
-include_once __DIR__ . '/../classes/Auth.php';
-    $auth = new Auth();
+    require __DIR__ . '/../autoload.php';
+// include_once __DIR__ . '/../classes/Auth.php';
+    $auth = new \Classes\Auth();
 
     if(isset($_POST['login'])){
         $login = !empty($_POST['login']) ?  $_POST['login'] : false;

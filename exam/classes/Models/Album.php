@@ -1,4 +1,5 @@
 <?php
+namespace Classes\Models;
 class Album
 {
     public $id;
@@ -7,7 +8,7 @@ class Album
     public $year;
     public $records;
 
-    public function __construct(stdClass $item)
+    public function __construct(\stdClass $item)
     {
        $this->id = $item->id;
        $this->title = $item->title;

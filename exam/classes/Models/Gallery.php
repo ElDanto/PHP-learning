@@ -1,5 +1,7 @@
 <?php
-require __DIR__ . '/Image.php';
+// require __DIR__ . '/Image.php';
+namespace Classes\Models;
+
 class Gallery
 {
     public function __construct($sqlArray)

@@ -1,14 +1,15 @@
 <?php 
-    require_once  __DIR__ . '/classes/Auth.php';
-    require __DIR__ . '/classes/View.php';
-    require __DIR__ . '/classes/Models/Albums.php';
+    require __DIR__ . '/autoload.php';
+    // require_once  __DIR__ . '/classes/Auth.php';
+    // require __DIR__ . '/classes/View.php';
+    // require __DIR__ . '/classes/Models/Albums.php';
 
-    $auth = new Auth;
+    $auth = new \Classes\Auth;
     $auth->checkAdmin();
 
-    $view = new View;
+    $view = new \Classes\View;
 
-    $db = new DB();
+    $db = new \Classes\DB();
 
     require __DIR__ . '/templates/header.php';
 
@@ -23,7 +24,7 @@
     if(isset($_GET['edit-albums'])){
         $sqlArray = $db->query('SELECT * FROM `albums` ORDER BY `year`DESC');
 
-        $albumsData = new Albums($sqlArray);
+        $albumsData = new \Classes\Models\Albums($sqlArray);
         $albums = $albumsData->getData();
 
         $view->assign('albums', $albums)->display(__DIR__ . '/templates/admin-templates/albums/edit-albums.php');
@@ -35,7 +36,7 @@
 
         $sqlArray = $db->query('SELECT * FROM `albums` WHERE `id` = :id', [':id' => $_GET['id']]);
 
-        $albumData = new Albums($sqlArray);
+        $albumData = new \Classes\Models\Albums($sqlArray);
 
         $album = $albumData->getData();
         $album = $album[0];

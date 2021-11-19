@@ -1,15 +1,15 @@
 <?php
-require __DIR__ . '/classes/DB.php';
-require __DIR__ . '/classes/Uploader.php';
-$db = new DB();
-var_dump($_POST);
+require __DIR__ . '/autoload.php';
+// require __DIR__ . '/classes/DB.php';
+// require __DIR__ . '/classes/Uploader.php';
+$db = new \Classes\DB();
 if(isset($_POST['album-name'])){
     if(empty($_POST['album-name']) && empty($_POST['album-content']) && empty($_POST['album-year'])){
         header('Location: http://learn-php.local/exam/admin.php');
         exit; 
     }else{
         $img = '';
-        $uploader = new Uploader('albums-cover', '/../img/albums/');
+        $uploader = new \Classes\Uploader('albums-cover', '/../img/albums/');
         $tempImg = $uploader->upload()->getUploadedFileName();
         if($tempImg){
             $img = '/albums/' . $tempImg;

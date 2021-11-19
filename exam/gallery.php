@@ -1,16 +1,17 @@
 <?php
-// require __DIR__ . '/classes/autoload.php';
-require __DIR__ . '/classes/DB.php';
-require __DIR__ . '/classes/View.php';
+require __DIR__ . '/autoload.php';
 
-require __DIR__ . '/classes/Models/Gallery.php';
+// require __DIR__ . '/classes/DB.php';
+// require __DIR__ . '/classes/View.php';
 
-$db = new DB();
+// require __DIR__ . '/classes/Models/Gallery.php';
+
+$db = new \Classes\DB();
 $sqlArray = $db->query('SELECT * FROM `gallery` ORDER BY `id`DESC');
 
-$view = new View;
+$view = new \Classes\View;
 
-$gallery = new Gallery($sqlArray);
+$gallery = new \Classes\Models\Gallery($sqlArray);
 $galleryData = $gallery->getData();
 
 include_once __DIR__ . '/templates/gallery.php';

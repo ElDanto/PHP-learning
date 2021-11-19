@@ -1,5 +1,7 @@
 <?php
-require __DIR__ . '/DB.php';
+// require __DIR__ . '/DB.php';
+namespace Classes;
+
 class Auth 
 {
     public function login($login, $pass)

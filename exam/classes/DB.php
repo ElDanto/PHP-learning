@@ -1,4 +1,6 @@
 <?php 
+namespace Classes;
+
 class DB
 {
 
@@ -8,7 +10,7 @@ class DB
     {
         $config = include __DIR__ . '/../config.php';
         $dsn = 'mysql:host=' . $config['host'] . ';' . 'dbname=' . $config['dbName'] . ';';
-        $this->dbh = new PDO($dsn, $config['dbUser'], $config['dbPass']);
+        $this->dbh = new \PDO($dsn, $config['dbUser'], $config['dbPass']);
     }
 
     public function getDbh()
@@ -45,6 +47,6 @@ class DB
         $test = $prepare->execute($data);
         // var_dump($sql, $prepare, $data);
         // // return $test;
-        return $prepare->fetchAll(PDO::FETCH_CLASS);
+        return $prepare->fetchAll(\PDO::FETCH_CLASS);
     }
 }

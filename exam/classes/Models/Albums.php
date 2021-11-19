@@ -1,6 +1,6 @@
 <?php
-// namespace App\Models;
-require __DIR__ . '/Album.php';
+namespace Classes\Models;
+
 class Albums
 {
     protected $data = [];
